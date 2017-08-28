@@ -30,13 +30,27 @@ public class TestGame {
             unDead.initTeam(1, 3, 4);
             secondTeam = unDead;
         }
+        while (firstTeam.getTeam().size() != 0 && firstTeam.getTeam().size() != 0)
+            if (random.nextInt(2) == 0) {
+                int firstTeamSize = firstTeam.getTeam().size();
+                int secondTeamSize = firstTeam.getTeam().size();
+                for (Warrior w : firstTeam.getTeam()) {
+                    if (w.group == Group.privileged) {
+                        if (random.nextInt(2) == 0) {
+                            //secondTeam.getTeam().get(random.nextInt(secondTeamSize-1)).changeHp(w.getLossSimpleAttack());
+                        } else {
+                            //secondTeam.getTeam().get(random.nextInt(secondTeamSize-1)).
+                        }
 
-        for (Warrior w:firstTeam.getTeam()) {
-            if(w.group == Group.privileged){
+                    }
+
+
+                }
+            } else {
 
             }
-        }
-
-
     }
+
 }
+
+

@@ -1,50 +1,43 @@
 package iao.ru;
 
+import java.util.Random;
+
 public class Warrior {
     protected double hp = 100;
     protected boolean isDead = false;
-    protected double lossSimpleAttack;
+    protected double ownForce;
     protected Group group = Group.notPrivileged;
-    protected boolean disease50OneStep = false;
+    protected boolean disease50PercentOneStep = false;
     protected boolean curseOneStep = false;
     protected RussSelect russSelect;
+    protected Gun gun = Gun.one;
 
-    public void changeHp(double hp) {
-        if (this.hp >= hp) {
-            this.hp = this.hp - hp;
+    protected void changeHp(double forseOpponent) {
+        if (hp >= forseOpponent) {
+            hp = hp - forseOpponent;
         } else {
-            this.hp = 0;
+            hp = 0;
         }
-        if (this.hp == 0) {
+        if (hp == 0) {
             isDead = true;
             System.out.println("Warior is dead");
         }
     }
-
+    protected void selectGunRandom() {
+        Random random = new Random();
+        if (random.nextInt(2) == 0) {
+            gun = Gun.one;
+        } else {
+            gun = Gun.two;
+        }
+    }
     public void changeGroup(Group group) {
         this.group = group;
     }
 
-    public double getLossSimpleAttack() {
-        if (disease50OneStep) {
-            double lossHpOpponent = this.lossSimpleAttack / 2;
-            if (group == Group.privileged && (!curseOneStep)) {
-                lossHpOpponent = (this.lossSimpleAttack * 1.5) / 2;
-            }
-        } else {
-            double lossHpOpponent = this.lossSimpleAttack;
-            if (group == Group.privileged && (!curseOneStep)) {
-                lossHpOpponent = this.lossSimpleAttack * 1.5;
-            }
-        }
-        disease50OneStep = false;
-        curseOneStep = false;
-        group = Group.notPrivileged;
-        return lossSimpleAttack;
-    }
 
-    public void setDisease50OneStep(boolean disease50OneStep) {
-        this.disease50OneStep = disease50OneStep;
+    public void setDisease50PercentOneStep(boolean disease50PercentOneStep) {
+        this.disease50PercentOneStep = disease50PercentOneStep;
     }
 
     public void setCurseOneStep(boolean curseOneStep) {
