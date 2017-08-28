@@ -1,5 +1,7 @@
 package iao.ru;
 
+import java.util.List;
+
 /**
  * Created by Zoxy1 on 26.08.17.
  */
@@ -23,8 +25,7 @@ public class Archer extends Warrior {
         }
     }
 
-    public void attack(Warrior warriorOpponent) {
-
+    private double calculateForceReal() {
         double forceReal = 0;
         if (gun == Gun.one) {
             if (group == Group.privileged && (!curseOneStep)) {
@@ -39,17 +40,14 @@ public class Archer extends Warrior {
         }
 
         if (gun == Gun.two) {
-            if (group == Group.privileged && (!curseOneStep)) {
-                forceReal = ownForce * 1.5;
-            } else {
-                forceReal = ownForce;
-            }
-
-            if (disease50PercentOneStep) {
-                forceReal = forceReal / 2;
-            }
+            forceReal = super.calculateOwnForceReal();
         }
-        warriorOpponent.changeHp(forceReal);
+
+        return forceReal;
+    }
+
+    public void attack(Warrior warriorOpponent, List<Warrior> ownTeam) {
+        warriorOpponent.changeHp(calculateForceReal());
         disease50PercentOneStep = false;
         curseOneStep = false;
         group = Group.notPrivileged;

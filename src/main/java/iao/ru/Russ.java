@@ -20,7 +20,4 @@ public abstract class Russ {
         return team;
     }
 
-    public void setTeam(List<Warrior> team) {
-        this.team = team;
-    }
 }

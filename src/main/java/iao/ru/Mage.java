@@ -27,26 +27,35 @@ public class Mage extends Warrior {
 
             if (gun == Gun.one) {
                 Random random = new Random();
-                ownTeam.get(random.nextInt(ownTeam.size())).group = Group.privileged;
+                ownTeam.get(random.nextInt(ownTeam.size())).setGroup(Group.privileged);
             }
-            double forceReal = 0;
-            if (gun == Gun.two) {
-                if (group == Group.privileged && (!curseOneStep)) {
-                    forceReal = ownForce * 1.5;
-                } else {
-                    forceReal = ownForce;
-                }
 
-                if (disease50PercentOneStep) {
-                    forceReal = forceReal / 2;
-                }
-                warriorOpponent.changeHp(forceReal);
+            if (gun == Gun.two) {
+                warriorOpponent.changeHp(super.calculateOwnForceReal());
             }
         }
 
         if (russSelect == RussSelect.orc) {
+            if (gun == Gun.one) {
+                Random random = new Random();
+                ownTeam.get(random.nextInt(ownTeam.size())).setGroup(Group.privileged);
+            }
 
+            if (gun == Gun.two) {
+                warriorOpponent.setCurseOneStep(true);
+            }
         }
+
+        if (russSelect == RussSelect.undead) {
+            if (gun == Gun.one) {
+                warriorOpponent.setDisease50PercentOneStep(true);
+            }
+
+            if (gun == Gun.two) {
+                warriorOpponent.changeHp(super.calculateOwnForceReal());
+            }
+        }
+
         disease50PercentOneStep = false;
         curseOneStep = false;
         group = Group.notPrivileged;

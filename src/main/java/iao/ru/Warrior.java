@@ -1,5 +1,6 @@
 package iao.ru;
 
+import java.util.List;
 import java.util.Random;
 
 public class Warrior {
@@ -31,13 +32,34 @@ public class Warrior {
             gun = Gun.two;
         }
     }
-    public void changeGroup(Group group) {
-        this.group = group;
+
+    protected double calculateOwnForceReal() {
+        double forceReal;
+        if (group == Group.privileged && (!curseOneStep)) {
+            forceReal = ownForce * 1.5;
+        } else {
+            forceReal = ownForce;
+        }
+        if (disease50PercentOneStep) {
+            forceReal = forceReal / 2;
+        }
+        return forceReal;
     }
 
+    public void attack(Warrior warriorOpponent, List<Warrior> ownTeam){
+
+    }
 
     public void setDisease50PercentOneStep(boolean disease50PercentOneStep) {
         this.disease50PercentOneStep = disease50PercentOneStep;
+    }
+
+    public void setGroup(Group group) {
+        this.group = group;
+    }
+
+    public Group getGroup() {
+        return group;
     }
 
     public void setCurseOneStep(boolean curseOneStep) {
