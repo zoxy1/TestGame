@@ -3,15 +3,16 @@ package iao.ru;
 import java.util.List;
 
 public class Soldier extends Warrior {
-    public Soldier(RussSelect russSelect) {
-        super.russSelect = russSelect;
-        if (russSelect == RussSelect.elf) {
+    public Soldier(RussType russType) {
+        super.russType = russType;
+        this.warriorType = WarriorType.soldier;
+        if (russType == RussType.elf) {
             ownForce = 15;
-        } else if (russSelect == RussSelect.people) {
+        } else if (russType == RussType.people) {
             ownForce = 18;
-        } else if (russSelect == RussSelect.orc) {
+        } else if (russType == RussType.orc) {
             ownForce = 20;
-        } else if (russSelect == RussSelect.undead) {
+        } else if (russType == RussType.undead) {
             ownForce = 18;
         }
     }
@@ -21,7 +22,9 @@ public class Soldier extends Warrior {
     }
 
     public void attack(Warrior warriorOpponent, List<Warrior> ownTeam) {
-        warriorOpponent.changeHp(calculateOwnForceReal());
+        double forceReal = calculateOwnForceReal();
+        warriorOpponent.changeHp(forceReal);
+        System.out.println(russType + " " + warriorType + " attack to " + warriorOpponent.warriorType + " from " + warriorOpponent.russType + ", damage is " + forceReal);
         disease50PercentOneStep = false;
         curseOneStep = false;
         group = Group.notPrivileged;

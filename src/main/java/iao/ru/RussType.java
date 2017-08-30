@@ -1,6 +1,6 @@
 package iao.ru;
 
-public enum RussSelect {
+public enum RussType {
     elf,
     people,
     orc,

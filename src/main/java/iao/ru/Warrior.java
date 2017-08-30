@@ -3,14 +3,15 @@ package iao.ru;
 import java.util.List;
 import java.util.Random;
 
-public class Warrior {
+public abstract class Warrior {
     protected double hp = 100;
     protected boolean isDead = false;
     protected double ownForce;
     protected Group group = Group.notPrivileged;
     protected boolean disease50PercentOneStep = false;
     protected boolean curseOneStep = false;
-    protected RussSelect russSelect;
+    protected RussType russType;
+    protected WarriorType warriorType;
     protected Gun gun = Gun.one;
 
     protected void changeHp(double forseOpponent) {
@@ -21,7 +22,7 @@ public class Warrior {
         }
         if (hp == 0) {
             isDead = true;
-            System.out.println("Warior is dead");
+            System.out.println(russType + " " + warriorType + " is dead");
         }
     }
     protected void selectGunRandom() {
@@ -46,9 +47,7 @@ public class Warrior {
         return forceReal;
     }
 
-    public void attack(Warrior warriorOpponent, List<Warrior> ownTeam){
-
-    }
+    public abstract void attack(Warrior warriorOpponent, List<Warrior> ownTeam);
 
     public void setDisease50PercentOneStep(boolean disease50PercentOneStep) {
         this.disease50PercentOneStep = disease50PercentOneStep;
