@@ -12,7 +12,7 @@ public abstract class Warrior {
     protected boolean curseOneStep = false;
     protected RussType russType;
     protected WarriorType warriorType;
-    protected Gun gun = Gun.one;
+    protected Gun gun;
 
     protected void changeHp(double forseOpponent) {
         if (hp >= forseOpponent) {
@@ -34,7 +34,7 @@ public abstract class Warrior {
         }
     }
 
-    protected double calculateOwnForceReal() {
+    protected double calculateForceReal() {
         double forceReal;
         if (group == Group.privileged && (!curseOneStep)) {
             forceReal = ownForce * 1.5;

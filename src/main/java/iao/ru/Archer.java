@@ -7,6 +7,7 @@ import java.util.List;
  */
 public class Archer extends Warrior {
     private double gunForce;
+
     public Archer(RussType russType) {
         this.russType = russType;
         this.warriorType = WarriorType.archer;
@@ -25,10 +26,32 @@ public class Archer extends Warrior {
         }
     }
 
+    protected double calculateForceReal() {
+        double forceReal = 0;
+        if (gun == Gun.one) {
+            if (group == Group.privileged && (!curseOneStep)) {
+                forceReal = gunForce * 1.5;
+            } else {
+                forceReal = gunForce;
+            }
+        }
+        if (gun == Gun.two) {
+            if (group == Group.privileged && (!curseOneStep)) {
+                forceReal = ownForce * 1.5;
+            } else {
+                forceReal = ownForce;
+            }
+        }
+        if (disease50PercentOneStep) {
+            forceReal = forceReal / 2;
+        }
+        return forceReal;
+    }
+
     public void attack(Warrior warriorOpponent, List<Warrior> ownTeam) {
-        double forceReal = calculateOwnForceReal();
-        warriorOpponent.changeHp(forceReal);
+        double forceReal = calculateForceReal();
         System.out.println(russType + " " + warriorType + " attack to " + warriorOpponent.warriorType + " from " + warriorOpponent.russType + ", damage is " + forceReal);
+        warriorOpponent.changeHp(forceReal);
         disease50PercentOneStep = false;
         curseOneStep = false;
         group = Group.notPrivileged;

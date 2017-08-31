@@ -26,7 +26,7 @@ public class TestGame {
         return firstTeam;
     }
 
-    protected Russ selectRandomSecondTeam() {
+    private Russ selectRandomSecondTeam() {
         Russ secondTeam;
         Random random = new Random();
         if (random.nextInt(2) == 0) {
@@ -43,21 +43,26 @@ public class TestGame {
         return secondTeam;
     }
 
-    protected void attackWarriors(List<Integer> warriors, Russ attackRuss, Russ opponentRuss) {
+    private void attackWarriors(List<Integer> warriors, Russ attackRuss, Russ opponentRuss) {
         Random random = new Random();
         while (warriors.size() != 0) {
-            int indexRandomAttackWarrior = random.nextInt(warriors.size());
-            Warrior warriorAttack = attackRuss.getTeam().get(warriors.get(indexRandomAttackWarrior));
-            warriorAttack.selectGunRandom();
-            int indexRandomOpponentWarrior = random.nextInt(opponentRuss.getTeam().size());
-            Warrior warriorOpponent = opponentRuss.getTeam().get(indexRandomOpponentWarrior);
-            warriorAttack.attack(warriorOpponent, attackRuss.getTeam());
-            opponentRuss.removeDeadWarrior();
-            warriors.remove(indexRandomAttackWarrior);
+            int opponentTeamSize = opponentRuss.getTeam().size();
+            if (opponentTeamSize > 0) {
+                int indexRandomAttackWarrior = random.nextInt(warriors.size());
+                Warrior warriorAttack = attackRuss.getTeam().get(warriors.get(indexRandomAttackWarrior));
+                warriorAttack.selectGunRandom();
+                int indexRandomOpponentWarrior = random.nextInt(opponentTeamSize);
+                Warrior warriorOpponent = opponentRuss.getTeam().get(indexRandomOpponentWarrior);
+                warriorAttack.attack(warriorOpponent, attackRuss.getTeam());
+                opponentRuss.removeDeadWarrior();
+                warriors.remove(indexRandomAttackWarrior);
+            } else {
+                break;
+            }
         }
     }
 
-    protected void oneAttackTeamToTeam(Russ attackRuss, Russ opponentRuss) {
+    private void oneAttackTeamToTeam(Russ attackRuss, Russ opponentRuss) {
         List<Integer> privilegedWarriors = new ArrayList<>();
         List<Integer> notPrivilegedWarriors = new ArrayList<>();
 
@@ -70,7 +75,7 @@ public class TestGame {
             }
         }
         attackWarriors(privilegedWarriors, attackRuss, opponentRuss);
-        attackWarriors(notPrivilegedWarriors, opponentRuss, attackRuss);
+        attackWarriors(notPrivilegedWarriors, attackRuss, opponentRuss);
     }
 
     public void run() {
@@ -78,24 +83,24 @@ public class TestGame {
         System.out.println("First team is " + firstTeam.getSelectedRuss());
         Russ secondTeam = selectRandomSecondTeam();
         System.out.println("Second team is " + secondTeam.getSelectedRuss());
-
         Random random = new Random();
+
         while (firstTeam.getTeam().size() != 0 && secondTeam.getTeam().size() != 0) {
             if (random.nextInt(2) == 0) {
-                System.out.println("\nTeam " + firstTeam.getSelectedRuss().toString()+ " attack to team " + secondTeam.getSelectedRuss().toString());
+                System.out.println("\nTeam " + firstTeam.getSelectedRuss() + " attack to team " + secondTeam.getSelectedRuss());
                 oneAttackTeamToTeam(firstTeam, secondTeam);
             } else {
-                System.out.println("\nTeam " + secondTeam.getSelectedRuss().toString()+ " attack to team " + firstTeam.getSelectedRuss().toString());
+                System.out.println("\nTeam " + secondTeam.getSelectedRuss() + " attack to team " + firstTeam.getSelectedRuss());
                 oneAttackTeamToTeam(secondTeam, firstTeam);
             }
         }
 
-        if(firstTeam.getTeam().size() !=0){
-            System.out.println(firstTeam.getSelectedRuss().toString() + " won!!!");
+        if (firstTeam.getTeam().size() != 0) {
+            System.out.println(firstTeam.getSelectedRuss() + " won!!!");
         }
 
-        if(secondTeam.getTeam().size() !=0){
-            System.out.println(firstTeam.getSelectedRuss().toString() + " won!!!");
+        if (secondTeam.getTeam().size() != 0) {
+            System.out.println(firstTeam.getSelectedRuss() + " won!!!");
         }
     }
 }

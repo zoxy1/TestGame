@@ -13,5 +13,4 @@ public class Elves extends Russ {
             team.add(new Soldier(RussType.elf));
         }
     }
-
 }
