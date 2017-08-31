@@ -1,5 +1,8 @@
 package iao.ru;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -8,6 +11,7 @@ import java.util.Random;
  * Created by Zoxy1 on 25.08.17.
  */
 public class TestGame {
+    private static Logger log = LogManager.getLogger(TestGame.class);
 
     protected Russ selectRandomFirstTeam() {
         Russ firstTeam;
@@ -80,27 +84,27 @@ public class TestGame {
 
     public void run() {
         Russ firstTeam = selectRandomFirstTeam();
-        System.out.println("First team is " + firstTeam.getSelectedRuss());
+        log.info("First team is " + firstTeam.getSelectedRuss());
         Russ secondTeam = selectRandomSecondTeam();
-        System.out.println("Second team is " + secondTeam.getSelectedRuss());
+        log.info("Second team is " + secondTeam.getSelectedRuss());
         Random random = new Random();
 
         while (firstTeam.getTeam().size() != 0 && secondTeam.getTeam().size() != 0) {
             if (random.nextInt(2) == 0) {
-                System.out.println("\nTeam " + firstTeam.getSelectedRuss() + " attack to team " + secondTeam.getSelectedRuss());
+                log.info("Team " + firstTeam.getSelectedRuss() + " attack to team " + secondTeam.getSelectedRuss());
                 oneAttackTeamToTeam(firstTeam, secondTeam);
             } else {
-                System.out.println("\nTeam " + secondTeam.getSelectedRuss() + " attack to team " + firstTeam.getSelectedRuss());
+                log.info("Team " + secondTeam.getSelectedRuss() + " attack to team " + firstTeam.getSelectedRuss());
                 oneAttackTeamToTeam(secondTeam, firstTeam);
             }
         }
 
         if (firstTeam.getTeam().size() != 0) {
-            System.out.println(firstTeam.getSelectedRuss() + " won!!!");
+            log.info(firstTeam.getSelectedRuss() + " won!!!");
         }
 
         if (secondTeam.getTeam().size() != 0) {
-            System.out.println(firstTeam.getSelectedRuss() + " won!!!");
+            log.info(firstTeam.getSelectedRuss() + " won!!!");
         }
     }
 }

@@ -1,5 +1,8 @@
 package iao.ru;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import java.util.List;
 import java.util.Random;
 
@@ -13,6 +16,7 @@ public abstract class Warrior {
     protected RussType russType;
     protected WarriorType warriorType;
     protected Gun gun;
+    private static Logger log = LogManager.getLogger(Warrior.class);
 
     protected void changeHp(double forseOpponent) {
         if (hp >= forseOpponent) {
@@ -22,7 +26,7 @@ public abstract class Warrior {
         }
         if (hp == 0) {
             isDead = true;
-            System.out.println(russType + " " + warriorType + " is dead");
+            log.info(russType + " " + warriorType + " is dead");
         }
     }
     protected void selectGunRandom() {

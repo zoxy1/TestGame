@@ -1,5 +1,8 @@
 package iao.ru;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import java.util.List;
 
 /**
@@ -7,6 +10,7 @@ import java.util.List;
  */
 public class Archer extends Warrior {
     private double gunForce;
+    private static Logger log = LogManager.getLogger(Archer.class);
 
     public Archer(RussType russType) {
         this.russType = russType;
@@ -50,7 +54,7 @@ public class Archer extends Warrior {
 
     public void attack(Warrior warriorOpponent, List<Warrior> ownTeam) {
         double forceReal = calculateForceReal();
-        System.out.println(russType + " " + warriorType + " attack to " + warriorOpponent.warriorType + " from " + warriorOpponent.russType + ", damage is " + forceReal);
+        log.info(russType + " " + warriorType + " attack to " + warriorOpponent.warriorType + " from " + warriorOpponent.russType + ", damage is " + forceReal);
         warriorOpponent.changeHp(forceReal);
         disease50PercentOneStep = false;
         curseOneStep = false;
